@@ -134,16 +134,15 @@ require __DIR__ . '/includes/topo.php';
       <?php if ($edicao && !empty($fotos)): ?>
       <div class="form-grupo" style="margin-bottom: 16px;">
         <label>Fotos atuais</label>
+        <input type="hidden" name="imovel_id" value="<?= (int) $imovel['id'] ?>">
         <div class="fotos-preview">
           <?php foreach ($fotos as $foto): ?>
           <div class="foto-item">
             <img src="<?= h(UPLOAD_URL . '/' . $foto['caminho_arquivo']) ?>" alt="Foto do imóvel">
-            <form method="POST" action="<?= BASE_URL ?>/painel/foto-excluir.php" onsubmit="return confirm('Remover esta foto?');">
-              <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
-              <input type="hidden" name="foto_id" value="<?= (int) $foto['id'] ?>">
-              <input type="hidden" name="imovel_id" value="<?= (int) $imovel['id'] ?>">
-              <button type="submit" class="remover-foto" title="Remover foto"><i class="fas fa-times"></i></button>
-            </form>
+            <button type="submit" name="foto_id" value="<?= (int) $foto['id'] ?>"
+                    formaction="<?= BASE_URL ?>/painel/foto-excluir.php" formmethod="POST" formnovalidate
+                    class="remover-foto" title="Remover foto"
+                    onclick="return confirm('Remover esta foto?');"><i class="fas fa-times"></i></button>
           </div>
           <?php endforeach; ?>
         </div>
