@@ -140,10 +140,10 @@
 
     <div class="footer-bottom">
       <p>&copy; <?= date('Y') ?> Grupo Pé na Areia Imóveis. Todos os direitos reservados.</p>
-      <a href="/painel/login.php" class="footer-acesso">Acesso</a>
+      <a href="<?= BASE_URL ?>/painel/login.php" class="footer-acesso">Acesso</a>
     </div>
   </footer>
 
-  <script src="/assets/js/site.js"></script>
+  <script src="<?= BASE_URL ?>/assets/js/site.js"></script>
 </body>
 </html>

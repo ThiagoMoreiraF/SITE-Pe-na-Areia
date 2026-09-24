@@ -64,12 +64,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Acesso ao Painel - Grupo Pé na Areia</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/assets/css/painel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/painel.css">
 </head>
 <body>
   <div class="login-box">
-    <img src="/assets/img/penareia_logo.jpeg" alt="Grupo Pé na Areia">
+    <img src="<?= BASE_URL ?>/assets/img/penareia_logo.png" alt="Grupo Pé na Areia">
     <h1>Grupo Pé na Areia</h1>
     <div class="sub">Painel administrativo</div>
 
@@ -93,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button type="submit" class="btn btn-primary">Entrar</button>
     </form>
 
-    <a href="/index.php" class="voltar">← Voltar ao site</a>
+    <a href="<?= BASE_URL ?>/index.php" class="voltar">← Voltar ao site</a>
   </div>
 </body>
 </html>

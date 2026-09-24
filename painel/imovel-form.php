@@ -28,7 +28,7 @@ require __DIR__ . '/includes/topo.php';
 
   <div class="painel-titulo">
     <h1><?= $edicao ? 'Editar imóvel' : 'Novo imóvel' ?></h1>
-    <a href="/painel/index.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
+    <a href="<?= BASE_URL ?>/painel/index.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar</a>
   </div>
 
   <?php if ($erro): ?>
@@ -42,7 +42,7 @@ require __DIR__ . '/includes/topo.php';
   <?php endif; ?>
 
   <div class="card-painel">
-    <form method="POST" action="/painel/imovel-salvar.php" enctype="multipart/form-data">
+    <form method="POST" action="<?= BASE_URL ?>/painel/imovel-salvar.php" enctype="multipart/form-data">
       <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
       <?php if ($edicao): ?>
         <input type="hidden" name="id" value="<?= (int) $imovel['id'] ?>">
@@ -70,15 +70,15 @@ require __DIR__ . '/includes/topo.php';
         </div>
         <div class="form-grupo">
           <label for="preco">Preço (R$) *</label>
-          <input type="number" id="preco" name="preco" required min="0" step="0.01" value="<?= h($imovel['preco'] ?? '') ?>">
+          <input type="text" inputmode="decimal" id="preco" name="preco" required value="<?= h(formatarNumeroBr(isset($imovel['preco']) ? (float) $imovel['preco'] : null)) ?>" oninput="mascaraMoeda(this)" placeholder="0,00">
         </div>
         <div class="form-grupo">
           <label for="iptu">IPTU (R$)</label>
-          <input type="number" id="iptu" name="iptu" min="0" step="0.01" value="<?= h($imovel['iptu'] ?? '') ?>">
+          <input type="text" inputmode="decimal" id="iptu" name="iptu" value="<?= h(formatarNumeroBr(isset($imovel['iptu']) ? (float) $imovel['iptu'] : null)) ?>" oninput="mascaraMoeda(this)" placeholder="0,00">
         </div>
         <div class="form-grupo" id="campo-condominio">
           <label for="condominio">Condomínio (R$)</label>
-          <input type="number" id="condominio" name="condominio" min="0" step="0.01" value="<?= h($imovel['condominio'] ?? '') ?>">
+          <input type="text" inputmode="decimal" id="condominio" name="condominio" value="<?= h(formatarNumeroBr(isset($imovel['condominio']) ? (float) $imovel['condominio'] : null)) ?>" oninput="mascaraMoeda(this)" placeholder="0,00">
           <span class="ajuda-texto">Só aparece para imóveis do tipo Apartamento.</span>
         </div>
         <div class="form-grupo">
@@ -138,7 +138,7 @@ require __DIR__ . '/includes/topo.php';
           <?php foreach ($fotos as $foto): ?>
           <div class="foto-item">
             <img src="<?= h(UPLOAD_URL . '/' . $foto['caminho_arquivo']) ?>" alt="Foto do imóvel">
-            <form method="POST" action="/painel/foto-excluir.php" onsubmit="return confirm('Remover esta foto?');">
+            <form method="POST" action="<?= BASE_URL ?>/painel/foto-excluir.php" onsubmit="return confirm('Remover esta foto?');">
               <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
               <input type="hidden" name="foto_id" value="<?= (int) $foto['id'] ?>">
               <input type="hidden" name="imovel_id" value="<?= (int) $imovel['id'] ?>">

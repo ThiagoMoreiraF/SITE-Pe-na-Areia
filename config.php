@@ -32,12 +32,23 @@ define('LOGIN_MAX_TENTATIVAS', 5);
 define('LOGIN_BLOQUEIO_MINUTOS', 15);
 define('SESSAO_INATIVIDADE_MINUTOS', 30);
 
+// ---------- URL base ----------
+// Detecta automaticamente se o site está na raiz do domínio (hospedagem final)
+// ou numa subpasta (ex: http://localhost/Penareia no XAMPP local). Não precisa mexer nisso na mão.
+$documentRoot = rtrim(str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT'] ?? ''), '/');
+$projectRoot = rtrim(str_replace('\\', '/', __DIR__), '/');
+$basePath = ($documentRoot !== '' && strpos($projectRoot, $documentRoot) === 0)
+    ? substr($projectRoot, strlen($documentRoot))
+    : '';
+define('BASE_URL', $basePath);
+unset($documentRoot, $projectRoot, $basePath);
+
 // ---------- Upload de fotos ----------
 define('UPLOAD_MAX_FOTOS', 10);
 define('UPLOAD_MAX_TAMANHO_MB', 5);
 define('UPLOAD_TIPOS_PERMITIDOS', ['jpg', 'jpeg', 'png', 'webp']);
 define('UPLOAD_DIR', __DIR__ . '/uploads/imoveis');
-define('UPLOAD_URL', '/uploads/imoveis');
+define('UPLOAD_URL', BASE_URL . '/uploads/imoveis');
 
 // ---------- Sessão ----------
 if (session_status() === PHP_SESSION_NONE) {

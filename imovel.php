@@ -18,7 +18,7 @@ if (!$imovel) {
     <div class="detalhe-card" style="padding: 40px; text-align: center;">
       <h2 style="color:#1e293b; margin-bottom: 10px;">Imóvel não encontrado</h2>
       <p style="color:#64748b; margin-bottom: 20px;">Verifique se o código foi digitado corretamente, ou o imóvel pode não estar mais disponível.</p>
-      <a href="/index.php" class="btn btn-primary">Voltar para a lista de imóveis</a>
+      <a href="<?= BASE_URL ?>/index.php" class="btn btn-primary">Voltar para a lista de imóveis</a>
     </div>
     <?php
     require __DIR__ . '/includes/footer.php';
@@ -37,7 +37,7 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
 ?>
 
     <div class="detalhe-topo">
-      <a href="/index.php" class="detalhe-voltar"><i class="fas fa-arrow-left"></i> Voltar para a lista de imóveis</a>
+      <a href="<?= BASE_URL ?>/index.php" class="detalhe-voltar"><i class="fas fa-arrow-left"></i> Voltar para a lista de imóveis</a>
       <span class="detalhe-codigo"><?= h($imovel['codigo']) ?></span>
     </div>
 
@@ -56,7 +56,7 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
         <?php endif; ?>
         <?php else: ?>
         <div class="carrossel-imagens">
-          <img src="/assets/img/sem-foto.svg" alt="Sem foto disponível" class="ativa">
+          <img src="<?= BASE_URL ?>/assets/img/sem-foto.svg" alt="Sem foto disponível" class="ativa">
         </div>
         <?php endif; ?>
       </div>

@@ -21,9 +21,9 @@ if (!validarCsrfToken($_POST['csrf_token'] ?? null)) {
 $titulo = trim($_POST['titulo'] ?? '');
 $finalidade = $_POST['finalidade'] ?? '';
 $tipo = $_POST['tipo'] ?? '';
-$preco = $_POST['preco'] ?? '';
-$iptu = trim($_POST['iptu'] ?? '');
-$condominio = trim($_POST['condominio'] ?? '');
+$preco = parseMoedaBr($_POST['preco'] ?? '');
+$iptu = parseMoedaBr($_POST['iptu'] ?? '');
+$condominio = parseMoedaBr($_POST['condominio'] ?? '');
 $observacoes = trim($_POST['observacoes'] ?? '');
 $descricao = trim($_POST['descricao'] ?? '');
 $cidadeBairro = trim($_POST['cidade_bairro'] ?? '');
@@ -44,12 +44,11 @@ if (!in_array($finalidade, ['aluguel', 'venda'], true)) {
 if (!array_key_exists($tipo, tiposImovel())) {
     voltarComErro('Selecione um tipo de imóvel válido.', $id);
 }
-if (!is_numeric($preco) || (float) $preco < 0) {
+if ($preco === null || $preco < 0) {
     voltarComErro('Informe um preço válido.', $id);
 }
 
-$iptu = ($iptu === '' || !is_numeric($iptu)) ? null : (float) $iptu;
-$condominio = ($tipo === 'apartamento' && $condominio !== '' && is_numeric($condominio)) ? (float) $condominio : null;
+$condominio = ($tipo === 'apartamento') ? $condominio : null;
 
 // ---------- Upload de fotos: valida ANTES de tocar no banco ----------
 $arquivosEnviados = [];

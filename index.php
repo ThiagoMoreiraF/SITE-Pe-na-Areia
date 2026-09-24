@@ -31,11 +31,11 @@ require __DIR__ . '/includes/header.php';
       <h3><i class="fas fa-star"></i> Imóveis em Destaque</h3>
       <div class="grid">
         <?php foreach ($destaques as $imovel):
-          $foto = $imovel['foto_capa'] ? UPLOAD_URL . '/' . $imovel['foto_capa'] : '/assets/img/sem-foto.svg';
+          $foto = $imovel['foto_capa'] ? UPLOAD_URL . '/' . $imovel['foto_capa'] : BASE_URL . '/assets/img/sem-foto.svg';
           $mensagem = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - ' . $imovel['titulo'] . ' (' . $imovel['cidade_bairro'] . ')';
         ?>
         <div class="card-imovel">
-          <a href="/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>" class="card-img-wrapper">
+          <a href="<?= BASE_URL ?>/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>" class="card-img-wrapper">
             <span class="card-badge"><?= h(tipoLabel($imovel['tipo'])) ?> · <?= h(finalidadeLabel($imovel['finalidade'])) ?></span>
             <span class="destaque-ribbon">Destaque</span>
             <span class="card-codigo"><?= h($imovel['codigo']) ?></span>
@@ -43,7 +43,7 @@ require __DIR__ . '/includes/header.php';
           </a>
           <div class="card-body">
             <div class="card-price"><?= h(formatarPreco((float) $imovel['preco'], $imovel['finalidade'])) ?></div>
-            <div class="card-title-text"><a href="/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>"><?= h($imovel['titulo']) ?></a></div>
+            <div class="card-title-text"><a href="<?= BASE_URL ?>/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>"><?= h($imovel['titulo']) ?></a></div>
             <div class="card-location"><i class="fas fa-map-marker-alt"></i> <?= h($imovel['cidade_bairro']) ?></div>
             <div class="card-details">
               <span><i class="fas fa-bed"></i> <?= (int) $imovel['dormitorios'] ?> dorm.</span>
@@ -52,7 +52,7 @@ require __DIR__ . '/includes/header.php';
             </div>
             <div class="card-tags"><?= h($imovel['observacoes'] ?? '') ?></div>
             <div class="card-actions">
-              <a href="/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>" class="btn-detalhes-card">Ver detalhes</a>
+              <a href="<?= BASE_URL ?>/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?>" class="btn-detalhes-card">Ver detalhes</a>
               <a href="https://wa.me/<?= h(WHATSAPP_PRINCIPAL) ?>?text=<?= urlencode($mensagem) ?>" target="_blank" rel="noopener" class="btn-whatsapp-card">
                 <i class="fab fa-whatsapp"></i> Tenho Interesse
               </a>

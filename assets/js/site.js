@@ -30,21 +30,22 @@ function selecionarFinalidade(finalidade, btn) {
 }
 
 function renderizarCard(imovel) {
-  const foto = imovel.foto_capa || '/assets/img/sem-foto.svg';
+  const base = window.BASE_URL || '';
+  const foto = imovel.foto_capa || base + '/assets/img/sem-foto.svg';
   const badgeTipo = escapeHtml(imovel.tipo_label);
   const badgeFinalidade = escapeHtml(imovel.finalidade_label);
   const mensagem = `Olá, tenho interesse no imóvel ${imovel.codigo} - ${imovel.titulo} (${imovel.cidade_bairro})`;
 
   return `
     <div class="card-imovel">
-      <a href="/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}" class="card-img-wrapper">
+      <a href="${base}/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}" class="card-img-wrapper">
         <span class="card-badge">${badgeTipo} · ${badgeFinalidade}</span>
         <span class="card-codigo">${escapeHtml(imovel.codigo)}</span>
         <img src="${foto}" alt="${escapeHtml(imovel.titulo)}" loading="lazy">
       </a>
       <div class="card-body">
         <div class="card-price">${formatarPrecoJS(imovel.preco, imovel.finalidade)}</div>
-        <div class="card-title-text"><a href="/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}">${escapeHtml(imovel.titulo)}</a></div>
+        <div class="card-title-text"><a href="${base}/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}">${escapeHtml(imovel.titulo)}</a></div>
         <div class="card-location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(imovel.cidade_bairro)}</div>
         <div class="card-details">
           <span><i class="fas fa-bed"></i> ${imovel.dormitorios} dorm.</span>
@@ -53,7 +54,7 @@ function renderizarCard(imovel) {
         </div>
         ${imovel.observacoes ? `<div class="card-tags">${escapeHtml(imovel.observacoes)}</div>` : '<div class="card-tags"></div>'}
         <div class="card-actions">
-          <a href="/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}" class="btn-detalhes-card">Ver detalhes</a>
+          <a href="${base}/imovel.php?codigo=${encodeURIComponent(imovel.codigo)}" class="btn-detalhes-card">Ver detalhes</a>
           <a href="https://wa.me/5513988381441?text=${encodeURIComponent(mensagem)}" target="_blank" rel="noopener" class="btn-whatsapp-card">
             <i class="fab fa-whatsapp"></i> Tenho Interesse
           </a>
@@ -104,13 +105,13 @@ function buscarPorCodigo(event) {
   const campo = document.getElementById('busca-codigo-input');
   const valor = (campo?.value || '').trim();
   if (!valor) return;
-  window.location.href = '/imovel.php?codigo=' + encodeURIComponent(valor);
+  window.location.href = (window.BASE_URL || '') + '/imovel.php?codigo=' + encodeURIComponent(valor);
 }
 
 async function carregarImoveis() {
   const grid = document.getElementById('imoveis-grid');
   try {
-    const resp = await fetch('/api/imoveis.php');
+    const resp = await fetch((window.BASE_URL || '') + '/api/imoveis.php');
     if (!resp.ok) throw new Error('Falha ao carregar imóveis');
     todosImoveis = await resp.json();
     aplicarFiltros();

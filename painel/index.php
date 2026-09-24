@@ -13,7 +13,7 @@ require __DIR__ . '/includes/topo.php';
 
   <div class="painel-titulo">
     <h1>Imóveis cadastrados</h1>
-    <a href="/painel/imovel-form.php" class="btn btn-primary"><i class="fas fa-plus"></i> Novo imóvel</a>
+    <a href="<?= BASE_URL ?>/painel/imovel-form.php" class="btn btn-primary"><i class="fas fa-plus"></i> Novo imóvel</a>
   </div>
 
   <?php if ($mensagem === 'salvo'): ?>
@@ -50,7 +50,7 @@ require __DIR__ . '/includes/topo.php';
           <td><?= h(formatarPreco((float) $imovel['preco'], $imovel['finalidade'])) ?></td>
           <td><?= h($imovel['cidade_bairro']) ?></td>
           <td>
-            <form method="POST" action="/painel/imovel-acao.php" style="display:inline;">
+            <form method="POST" action="<?= BASE_URL ?>/painel/imovel-acao.php" style="display:inline;">
               <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
               <input type="hidden" name="id" value="<?= (int) $imovel['id'] ?>">
               <input type="hidden" name="acao" value="toggle_destaque">
@@ -60,7 +60,7 @@ require __DIR__ . '/includes/topo.php';
             </form>
           </td>
           <td>
-            <form method="POST" action="/painel/imovel-acao.php" style="display:inline;">
+            <form method="POST" action="<?= BASE_URL ?>/painel/imovel-acao.php" style="display:inline;">
               <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
               <input type="hidden" name="id" value="<?= (int) $imovel['id'] ?>">
               <input type="hidden" name="acao" value="toggle_status">
@@ -70,8 +70,8 @@ require __DIR__ . '/includes/topo.php';
             </form>
           </td>
           <td class="acoes">
-            <a href="/painel/imovel-form.php?id=<?= (int) $imovel['id'] ?>" class="btn btn-sm btn-primary">Editar</a>
-            <form method="POST" action="/painel/imovel-acao.php" onsubmit="return confirm('Tem certeza que deseja excluir este imóvel e todas as fotos dele? Essa ação não pode ser desfeita.');" style="display:inline;">
+            <a href="<?= BASE_URL ?>/painel/imovel-form.php?id=<?= (int) $imovel['id'] ?>" class="btn btn-sm btn-primary">Editar</a>
+            <form method="POST" action="<?= BASE_URL ?>/painel/imovel-acao.php" onsubmit="return confirm('Tem certeza que deseja excluir este imóvel e todas as fotos dele? Essa ação não pode ser desfeita.');" style="display:inline;">
               <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
               <input type="hidden" name="id" value="<?= (int) $imovel['id'] ?>">
               <input type="hidden" name="acao" value="excluir">

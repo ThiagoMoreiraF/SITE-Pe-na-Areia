@@ -47,12 +47,15 @@ $paginaTitulo = 'Configuração inicial - Painel Pé na Areia';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= h($paginaTitulo) ?></title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="/assets/css/painel.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/painel.css">
 </head>
 <body>
   <div class="login-box">
-    <img src="/assets/img/penareia_logo.jpeg" alt="Grupo Pé na Areia">
+    <img src="<?= BASE_URL ?>/assets/img/penareia_logo.png" alt="Grupo Pé na Areia">
     <h1>Configuração inicial</h1>
     <div class="sub">Criação do usuário administrador (uso único)</div>
 
@@ -65,7 +68,7 @@ $paginaTitulo = 'Configuração inicial - Painel Pé na Areia';
         Administrador criado com sucesso! Agora <strong>apague o arquivo painel/setup.php</strong> do servidor
         e acesse o painel normalmente.
       </div>
-      <a href="/painel/login.php" class="btn btn-primary" style="display:block; text-align:center;">Ir para o login</a>
+      <a href="<?= BASE_URL ?>/painel/login.php" class="btn btn-primary" style="display:block; text-align:center;">Ir para o login</a>
     <?php elseif (!$jaExisteAdmin): ?>
       <form method="POST">
         <input type="hidden" name="csrf_token" value="<?= h(gerarCsrfToken()) ?>">
@@ -85,7 +88,7 @@ $paginaTitulo = 'Configuração inicial - Painel Pé na Areia';
       </form>
     <?php endif; ?>
 
-    <a href="/index.php" class="voltar">← Voltar ao site</a>
+    <a href="<?= BASE_URL ?>/index.php" class="voltar">← Voltar ao site</a>
   </div>
 </body>
 </html>

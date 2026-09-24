@@ -63,6 +63,31 @@ function formatarMoeda(?float $valor): ?string
     return 'R$ ' . number_format($valor, 2, ',', '.');
 }
 
+/** Formata um número (sem "R$") no padrão BR, pra preencher campos com máscara de moeda. */
+function formatarNumeroBr(?float $valor): string
+{
+    if ($valor === null) {
+        return '';
+    }
+    return number_format($valor, 2, ',', '.');
+}
+
+/**
+ * Converte um valor digitado no padrão BR (ex: "1.450.000,00") pra float.
+ * Retorna null se vazio ou inválido — nunca use is_numeric() direto num campo
+ * de moeda digitado por brasileiro, porque "1.450.000,00" não é numérico em PHP/JS.
+ */
+function parseMoedaBr(string $valor): ?float
+{
+    $valor = trim($valor);
+    if ($valor === '') {
+        return null;
+    }
+    $normalizado = str_replace('.', '', $valor);
+    $normalizado = str_replace(',', '.', $normalizado);
+    return is_numeric($normalizado) ? (float) $normalizado : null;
+}
+
 /**
  * Gera o código legível do imóvel (ex: PNA-00001) a partir do ID numérico.
  * Deve ser chamada DEPOIS do INSERT, usando o lastInsertId(), para evitar
@@ -89,7 +114,7 @@ function normalizarCodigo(string $entrada): string
 
 function redirecionar(string $destino): void
 {
-    header('Location: ' . $destino);
+    header('Location: ' . BASE_URL . $destino);
     exit;
 }
 
