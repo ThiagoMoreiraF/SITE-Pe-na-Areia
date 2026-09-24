@@ -82,7 +82,16 @@ header {
   border-bottom: 4px solid #0E7C7B;
   box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   letter-spacing: 0.5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 20px;
 }
+
+.header-nav { display: flex; gap: 20px; }
+.header-nav a { color: #0B2E33; text-decoration: none; font-weight: 700; padding-bottom: 2px; border-bottom: 2px solid transparent; }
+.header-nav a:hover, .header-nav a.active { color: #0E7C7B; border-bottom-color: #E8871E; }
 
 .container { max-width: 1300px; margin: 25px auto; padding: 0 15px; flex: 1; width: 100%; }
 
@@ -777,3 +786,84 @@ footer {
   padding-left: 14px;
 }
 .footer-acesso:hover { color: #4FB8B0; }
+
+/* PÁGINA QUEM SOMOS */
+.sobre-hero {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 16px;
+  padding: 36px 40px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+  border-top: 4px solid #0E7C7B;
+  margin-bottom: 26px;
+}
+.sobre-hero h2 {
+  font-size: 30px;
+  color: #0B2E33;
+  margin-bottom: 18px;
+}
+.sobre-hero p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #2B4548;
+  margin-bottom: 16px;
+}
+.sobre-hero p:last-of-type { margin-bottom: 0; }
+
+.sobre-tagline {
+  text-align: center;
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #F5A947;
+  background: #0B2E33;
+  margin: 26px 0 30px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+  margin-bottom: 10px;
+}
+
+.sobre-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 14px;
+  padding: 26px 28px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-top: 4px solid #E8871E;
+}
+.sobre-card h3 {
+  font-size: 19px;
+  color: #0B2E33;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sobre-card h3 i { color: #0E7C7B; }
+.sobre-card p { font-size: 14px; line-height: 1.7; color: #2B4548; }
+
+.sobre-valores { list-style: none; }
+.sobre-valores li {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #2B4548;
+  margin-bottom: 12px;
+  padding-left: 22px;
+  position: relative;
+}
+.sobre-valores li::before {
+  content: "\f058";
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  color: #0E7C7B;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-size: 13px;
+}
+.sobre-valores strong { color: #0B2E33; }

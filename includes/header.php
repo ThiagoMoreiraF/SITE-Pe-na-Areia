@@ -37,13 +37,16 @@ $paginaDescricao = $paginaDescricao ?? 'Grupo Pé na Areia - Consultoria e Asses
 
     <div class="header-contact">
       <p>📱 <strong>WhatsApp:</strong> <a href="https://wa.me/<?= h(WHATSAPP_PRINCIPAL) ?>" target="_blank" rel="noopener">(13) 98838-1441</a></p>
-      <p>🌐 <strong>Site:</strong> <a href="<?= h(SITE_URL) ?>" target="_blank" rel="noopener">grupopenaareia.com.br</a></p>
       <p>✉️ <strong>E-mail:</strong> <a href="mailto:<?= h(EMAIL_CONTATO) ?>"><?= h(EMAIL_CONTATO) ?></a></p>
     </div>
   </header>
 
   <div class="header-division-bar">
-    Litoral Sul – SP | Mongaguá, Itanhaém, Praia Grande e regiões.
+    <span>Litoral Sul – SP | Mongaguá, Itanhaém, Praia Grande e regiões.</span>
+    <nav class="header-nav">
+      <a href="<?= BASE_URL ?>/index.php">Início</a>
+      <a href="<?= BASE_URL ?>/quem-somos.php">Quem Somos</a>
+    </nav>
   </div>
 
   <div class="container">

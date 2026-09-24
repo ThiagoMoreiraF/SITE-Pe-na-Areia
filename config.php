@@ -22,7 +22,7 @@ define('ENDERECO', 'Bairro Florida Mirim, Mongaguá – SP');
 
 // ---------- Redes sociais ----------
 define('SOCIAL_INSTAGRAM', 'https://www.instagram.com/rcosta2322/');
-define('SOCIAL_FACEBOOK', 'https://www.facebook.com/ronaldo.costa.868222');
+define('SOCIAL_FACEBOOK', 'https://www.facebook.com/profile.php?id=100089731576126');
 define('SOCIAL_TIKTOK', 'https://www.tiktok.com/@ronaldocosta2581?_r=1&_t=ZS-99X6HmLJ3Ce');
 define('SOCIAL_LINKEDIN', 'https://www.linkedin.com/in/ronaldo-costa-6b876a33/');
 define('SOCIAL_YOUTUBE', 'https://www.youtube.com/@ronaldocosta9425');

@@ -47,9 +47,6 @@
             </div>
           </li>
           <li>
-            <div><strong>Website:</strong> <a href="<?= h(SITE_URL) ?>" target="_blank" rel="noopener">grupopenaareia.com.br</a></div>
-          </li>
-          <li>
             <div><strong>Horário:</strong> Segunda a Sábado das 09h00 às 18h00</div>
           </li>
           <li>
