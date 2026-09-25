@@ -141,6 +141,6 @@
     </div>
   </footer>
 
-  <script src="<?= BASE_URL ?>/assets/js/site.js"></script>
+  <script src="<?= assetUrl('/assets/js/site.js') ?>"></script>
 </body>
 </html>

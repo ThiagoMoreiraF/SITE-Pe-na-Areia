@@ -26,6 +26,7 @@ require __DIR__ . '/includes/topo.php';
     <?php if (empty($imoveis)): ?>
       <p>Nenhum imóvel cadastrado ainda.</p>
     <?php else: ?>
+    <div class="tabela-scroll">
     <table class="tabela-imoveis">
       <thead>
         <tr>
@@ -82,6 +83,7 @@ require __DIR__ . '/includes/topo.php';
         <?php endforeach; ?>
       </tbody>
     </table>
+    </div>
     <?php endif; ?>
   </div>
 

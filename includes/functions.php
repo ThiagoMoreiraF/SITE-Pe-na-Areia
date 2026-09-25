@@ -112,6 +112,18 @@ function normalizarCodigo(string $entrada): string
     return $entrada;
 }
 
+/**
+ * Monta a URL de um arquivo estático (CSS/JS/imagem) com um parâmetro de versão
+ * baseado na data de modificação do arquivo, pra forçar o navegador a buscar
+ * a versão nova sempre que o arquivo mudar (evita cache antigo no celular).
+ */
+function assetUrl(string $caminhoRelativo): string
+{
+    $caminhoAbsoluto = dirname(__DIR__) . $caminhoRelativo;
+    $versao = is_file($caminhoAbsoluto) ? filemtime($caminhoAbsoluto) : time();
+    return BASE_URL . $caminhoRelativo . '?v=' . $versao;
+}
+
 function redirecionar(string $destino): void
 {
     header('Location: ' . BASE_URL . $destino);

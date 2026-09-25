@@ -1,4 +1,4 @@
   </div><!-- /.painel-container -->
-  <script src="<?= BASE_URL ?>/assets/js/painel.js"></script>
+  <script src="<?= assetUrl('/assets/js/painel.js') ?>"></script>
 </body>
 </html>

@@ -564,7 +564,10 @@ footer {
   grid-template-columns: 1fr 1.3fr 1.2fr;
   gap: 30px;
   align-items: start;
+  min-width: 0;
 }
+
+.footer-section { min-width: 0; }
 
 @media (max-width: 1024px) {
   .footer-content { grid-template-columns: 1fr; gap: 30px; }
