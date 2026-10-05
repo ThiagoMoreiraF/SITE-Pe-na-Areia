@@ -130,6 +130,93 @@ function redirecionar(string $destino): void
     exit;
 }
 
+/**
+ * Comprime e redimensiona uma imagem recém-enviada usando GD, pra não estourar
+ * o espaço em disco da hospedagem. Se o GD não estiver disponível no servidor,
+ * retorna false (o chamador deve então salvar o arquivo original sem comprimir
+ * — nunca travar o cadastro por causa disso).
+ */
+function comprimirImagem(string $caminhoOrigem, string $caminhoDestino, string $mimeOriginal): bool
+{
+    if (!extension_loaded('gd')) {
+        return false;
+    }
+
+    switch ($mimeOriginal) {
+        case 'image/jpeg':
+            $origem = @imagecreatefromjpeg($caminhoOrigem);
+            break;
+        case 'image/png':
+            $origem = @imagecreatefrompng($caminhoOrigem);
+            break;
+        case 'image/webp':
+            $origem = function_exists('imagecreatefromwebp') ? @imagecreatefromwebp($caminhoOrigem) : false;
+            break;
+        default:
+            $origem = false;
+    }
+
+    if ($origem === false) {
+        return false;
+    }
+
+    $larguraOriginal = imagesx($origem);
+    $alturaOriginal = imagesy($origem);
+
+    if ($larguraOriginal > UPLOAD_LARGURA_MAXIMA) {
+        $novaLargura = UPLOAD_LARGURA_MAXIMA;
+        $novaAltura = (int) round($alturaOriginal * ($novaLargura / $larguraOriginal));
+        $final = imagecreatetruecolor($novaLargura, $novaAltura);
+
+        if ($mimeOriginal === 'image/png') {
+            imagealphablending($final, false);
+            imagesavealpha($final, true);
+        }
+
+        imagecopyresampled($final, $origem, 0, 0, 0, 0, $novaLargura, $novaAltura, $larguraOriginal, $alturaOriginal);
+        imagedestroy($origem);
+    } else {
+        $final = $origem;
+    }
+
+    $sucesso = ($mimeOriginal === 'image/png')
+        ? imagepng($final, $caminhoDestino, 6)
+        : imagejpeg($final, $caminhoDestino, UPLOAD_QUALIDADE_JPEG);
+
+    imagedestroy($final);
+
+    return $sucesso;
+}
+
+/**
+ * Converte um caminho relativo ao site (que já pode incluir o BASE_URL local,
+ * tipo /pena-areia) numa URL absoluta correta usando o domínio de produção
+ * (SITE_URL) — usado em og:image, og:url, canonical etc, que o Facebook/Google
+ * precisam receber como URL completa e correta mesmo quando testamos localmente.
+ */
+function absoluteUrl(string $caminho): string
+{
+    if (BASE_URL !== '' && strpos($caminho, BASE_URL) === 0) {
+        $caminho = substr($caminho, strlen(BASE_URL));
+    }
+    return rtrim(SITE_URL, '/') . $caminho;
+}
+
+/** Extrai o ID de um vídeo do YouTube a partir de vários formatos de URL possíveis. */
+function extrairYoutubeId(string $url): ?string
+{
+    if (preg_match('/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/', $url, $m)) {
+        return $m[1];
+    }
+    return null;
+}
+
+/** Extensão do arquivo final após a compressão (PNG permanece PNG, o resto vira JPEG). */
+function extensaoComprimida(string $mimeOriginal): string
+{
+    return $mimeOriginal === 'image/png' ? 'png' : 'jpg';
+}
+
 /** Gera (ou reaproveita) o token CSRF da sessão atual. */
 function gerarCsrfToken(): string
 {

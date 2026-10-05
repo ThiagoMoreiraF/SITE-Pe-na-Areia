@@ -5,8 +5,11 @@
  */
 require_once __DIR__ . '/functions.php';
 
-$paginaTitulo = $paginaTitulo ?? 'Grupo Pé na Areia - Portal Imobiliário';
-$paginaDescricao = $paginaDescricao ?? 'Grupo Pé na Areia - Consultoria e Assessoria Imobiliária no Litoral Sul de São Paulo (Mongaguá, Itanhaém, Praia Grande).';
+$paginaTitulo = $paginaTitulo ?? 'Grupo Pé na Areia | Imobiliária em Mongaguá e Litoral Sul - SP';
+$paginaDescricao = $paginaDescricao ?? 'Imobiliária em Mongaguá, Praia Grande e Itanhaém. Casas, apartamentos, kitnets e terrenos à venda e para alugar no Litoral Sul de SP. Consultoria completa com o Grupo Pé na Areia.';
+$paginaUrl = $paginaUrl ?? absoluteUrl($_SERVER['REQUEST_URI'] ?? '');
+$ogImagem = $ogImagem ?? absoluteUrl('/assets/img/penareia_logo.png');
+$ogTipo = $ogTipo ?? 'website';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -15,6 +18,21 @@ $paginaDescricao = $paginaDescricao ?? 'Grupo Pé na Areia - Consultoria e Asses
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="<?= h($paginaDescricao) ?>">
   <title><?= h($paginaTitulo) ?></title>
+
+  <link rel="canonical" href="<?= h($paginaUrl) ?>">
+
+  <meta property="og:type" content="<?= h($ogTipo) ?>">
+  <meta property="og:site_name" content="Grupo Pé na Areia">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:title" content="<?= h($paginaTitulo) ?>">
+  <meta property="og:description" content="<?= h($paginaDescricao) ?>">
+  <meta property="og:image" content="<?= h($ogImagem) ?>">
+  <meta property="og:url" content="<?= h($paginaUrl) ?>">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<?= h($paginaTitulo) ?>">
+  <meta name="twitter:description" content="<?= h($paginaDescricao) ?>">
+  <meta name="twitter:image" content="<?= h($ogImagem) ?>">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,11 +60,11 @@ $paginaDescricao = $paginaDescricao ?? 'Grupo Pé na Areia - Consultoria e Asses
   </header>
 
   <div class="header-division-bar">
-    <span>Litoral Sul – SP | Mongaguá, Itanhaém, Praia Grande e regiões.</span>
     <nav class="header-nav">
-      <a href="<?= BASE_URL ?>/index.php">Início</a>
-      <a href="<?= BASE_URL ?>/quem-somos.php">Quem Somos</a>
+      <a href="<?= BASE_URL ?>/index.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'index.php') ? ' class="active"' : '' ?>>Início</a>
+      <a href="<?= BASE_URL ?>/quem-somos.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'quem-somos.php') ? ' class="active"' : '' ?>>Quem Somos</a>
     </nav>
+    <span>Litoral Sul – SP | Mongaguá, Itanhaém, Praia Grande e regiões.</span>
   </div>
 
   <div class="container">

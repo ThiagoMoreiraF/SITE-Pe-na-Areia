@@ -79,7 +79,7 @@ require __DIR__ . '/includes/topo.php';
         <div class="form-grupo" id="campo-condominio">
           <label for="condominio">Condomínio (R$)</label>
           <input type="text" inputmode="decimal" id="condominio" name="condominio" value="<?= h(formatarNumeroBr(isset($imovel['condominio']) ? (float) $imovel['condominio'] : null)) ?>" oninput="mascaraMoeda(this)" placeholder="0,00">
-          <span class="ajuda-texto">Só aparece para imóveis do tipo Apartamento.</span>
+          <span class="ajuda-texto">Só aparece para imóveis do tipo Apartamento ou Kitnet.</span>
         </div>
         <div class="form-grupo">
           <label for="cidade_bairro">Cidade / Bairro *</label>
@@ -151,9 +151,22 @@ require __DIR__ . '/includes/topo.php';
       <?php endif; ?>
 
       <div class="form-grupo" style="margin-bottom: 20px;">
-        <label for="fotos">Adicionar fotos (JPG, PNG ou WEBP, até <?= UPLOAD_MAX_TAMANHO_MB ?>MB cada)</label>
+        <label for="fotos">Adicionar fotos (JPG, PNG ou WEBP, até <?= UPLOAD_MAX_TAMANHO_MB ?>MB cada — são comprimidas automaticamente)</label>
         <input type="file" id="fotos" name="fotos[]" accept=".jpg,.jpeg,.png,.webp" multiple>
         <span class="ajuda-texto">Máximo de <?= UPLOAD_MAX_FOTOS ?> fotos por imóvel no total.</span>
+      </div>
+
+      <div class="form-grid" style="margin-bottom: 20px;">
+        <div class="form-grupo">
+          <label for="youtube_url"><i class="fab fa-youtube"></i> Link do vídeo no YouTube (opcional)</label>
+          <input type="url" id="youtube_url" name="youtube_url" value="<?= h($imovel['youtube_url'] ?? '') ?>" placeholder="https://www.youtube.com/watch?v=...">
+          <span class="ajuda-texto">O vídeo aparece embutido na página do imóvel, logo abaixo das fotos.</span>
+        </div>
+        <div class="form-grupo">
+          <label for="drive_url"><i class="fab fa-google-drive"></i> Link da pasta no Google Drive (opcional)</label>
+          <input type="url" id="drive_url" name="drive_url" value="<?= h($imovel['drive_url'] ?? '') ?>" placeholder="https://drive.google.com/...">
+          <span class="ajuda-texto">Use quando tiver mais de <?= UPLOAD_MAX_FOTOS ?> fotos ou vídeos extras. Aparece como um botão "Ver galeria completa".</span>
+        </div>
       </div>
 
       <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar imóvel</button>
@@ -163,7 +176,7 @@ require __DIR__ . '/includes/topo.php';
   <script>
     function alternarCampoCondominio() {
       const tipo = document.getElementById('tipo').value;
-      document.getElementById('campo-condominio').style.display = (tipo === 'apartamento') ? 'flex' : 'none';
+      document.getElementById('campo-condominio').style.display = (tipo === 'apartamento' || tipo === 'kitnet') ? 'flex' : 'none';
     }
     document.addEventListener('DOMContentLoaded', alternarCampoCondominio);
   </script>

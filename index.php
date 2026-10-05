@@ -15,9 +15,35 @@ $stmtDestaques = $pdo->prepare(
 $stmtDestaques->execute();
 $destaques = $stmtDestaques->fetchAll();
 
-$paginaTitulo = 'Grupo Pé na Areia - Portal Imobiliário';
+$paginaTitulo = 'Grupo Pé na Areia | Imobiliária em Mongaguá e Litoral Sul - SP';
+$paginaDescricao = 'Imobiliária em Mongaguá, Praia Grande e Itanhaém. Casas, apartamentos, kitnets e terrenos à venda e para alugar no Litoral Sul de SP. Consultoria completa com o Grupo Pé na Areia.';
 require __DIR__ . '/includes/header.php';
 ?>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "Grupo Pé na Areia",
+      "description": "Consultoria, assessoria e intermediação de negócios imobiliários no Litoral Sul de SP.",
+      "url": "<?= h(rtrim(SITE_URL, '/')) ?>",
+      "image": "<?= h(rtrim(SITE_URL, '/')) ?>/assets/img/penareia_logo.png",
+      "telephone": "+<?= h(WHATSAPP_PRINCIPAL) ?>",
+      "email": "<?= h(EMAIL_CONTATO) ?>",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Mongaguá",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "areaServed": ["Mongaguá", "Praia Grande", "Itanhaém", "Litoral Sul de São Paulo"],
+      "sameAs": [
+        "<?= h(SOCIAL_INSTAGRAM) ?>",
+        "<?= h(SOCIAL_FACEBOOK) ?>",
+        "<?= h(SOCIAL_YOUTUBE) ?>"
+      ]
+    }
+    </script>
 
     <!-- BUSCA RÁPIDA POR CÓDIGO -->
     <form class="codigo-search-bar" onsubmit="buscarPorCodigo(event)">
@@ -140,6 +166,8 @@ require __DIR__ . '/includes/header.php';
               <option value="25">25 anos (300 meses)</option>
               <option value="20">20 anos (240 meses)</option>
               <option value="15">15 anos (180 meses)</option>
+              <option value="10">10 anos (120 meses)</option>
+              <option value="5">5 anos (60 meses)</option>
             </select>
           </div>
 

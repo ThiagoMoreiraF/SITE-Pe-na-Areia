@@ -1,6 +1,19 @@
 # Desativa listagem de diretórios
 Options -Indexes
 
+# URLs amigáveis de SEO (mantém as URLs antigas funcionando também, nada é redirecionado à força)
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # /sitemap.xml -> sitemap.php
+  RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
+  # /imovel/PNA-00001 -> imovel.php?codigo=PNA-00001
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^imovel/([A-Za-z0-9-]+)/?$ imovel.php?codigo=$1 [L,QSA]
+</IfModule>
+
 # Bloqueia acesso direto a arquivos sensíveis
 <FilesMatch "\.(sql|log|env|md)$">
   <IfModule mod_authz_core.c>

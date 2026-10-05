@@ -44,11 +44,15 @@ define('BASE_URL', $basePath);
 unset($documentRoot, $projectRoot, $basePath);
 
 // ---------- Upload de fotos ----------
-define('UPLOAD_MAX_FOTOS', 10);
-define('UPLOAD_MAX_TAMANHO_MB', 5);
+define('UPLOAD_MAX_FOTOS', 15);
+define('UPLOAD_MAX_TAMANHO_MB', 8); // limite do arquivo ORIGINAL enviado, antes da compressão
 define('UPLOAD_TIPOS_PERMITIDOS', ['jpg', 'jpeg', 'png', 'webp']);
 define('UPLOAD_DIR', __DIR__ . '/uploads/imoveis');
 define('UPLOAD_URL', BASE_URL . '/uploads/imoveis');
+
+// Compressão de imagem (evita estourar o espaço em disco da hospedagem)
+define('UPLOAD_LARGURA_MAXIMA', 1920); // px — fotos maiores que isso são redimensionadas
+define('UPLOAD_QUALIDADE_JPEG', 78);   // 0-100 — equilíbrio entre nitidez e peso do arquivo
 
 // ---------- Sessão ----------
 if (session_status() === PHP_SESSION_NONE) {

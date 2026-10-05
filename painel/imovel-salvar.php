@@ -34,6 +34,8 @@ $aceitaFinanciamento = isset($_POST['aceita_financiamento']) ? 1 : 0;
 $aceitaPermuta = isset($_POST['aceita_permuta']) ? 1 : 0;
 $destaque = isset($_POST['destaque']) ? 1 : 0;
 $status = ($_POST['status'] ?? 'ativo') === 'inativo' ? 'inativo' : 'ativo';
+$youtubeUrl = trim($_POST['youtube_url'] ?? '');
+$driveUrl = trim($_POST['drive_url'] ?? '');
 
 if ($titulo === '' || $descricao === '' || $cidadeBairro === '') {
     voltarComErro('Preencha os campos obrigatórios: título, descrição e cidade/bairro.', $id);
@@ -48,7 +50,23 @@ if ($preco === null || $preco < 0) {
     voltarComErro('Informe um preço válido.', $id);
 }
 
-$condominio = ($tipo === 'apartamento') ? $condominio : null;
+$condominio = in_array($tipo, ['apartamento', 'kitnet'], true) ? $condominio : null;
+
+if ($youtubeUrl !== '') {
+    if (!filter_var($youtubeUrl, FILTER_VALIDATE_URL) || !preg_match('/(youtube\.com|youtu\.be)/i', $youtubeUrl)) {
+        voltarComErro('O link do YouTube parece inválido. Cole a URL completa do vídeo.', $id);
+    }
+} else {
+    $youtubeUrl = null;
+}
+
+if ($driveUrl !== '') {
+    if (!filter_var($driveUrl, FILTER_VALIDATE_URL)) {
+        voltarComErro('O link do Google Drive parece inválido. Cole a URL completa da pasta.', $id);
+    }
+} else {
+    $driveUrl = null;
+}
 
 // ---------- Upload de fotos: valida ANTES de tocar no banco ----------
 $arquivosEnviados = [];
@@ -94,7 +112,7 @@ if (!empty($_FILES['fotos']) && is_array($_FILES['fotos']['name'])) {
             voltarComErro('Um dos arquivos enviados não é uma imagem válida.', $id);
         }
 
-        $arquivosEnviados[] = ['tmp' => $caminhoTemp, 'extensao' => $extensao];
+        $arquivosEnviados[] = ['tmp' => $caminhoTemp, 'extensao' => $extensao, 'mime' => $infoImagem['mime']];
     }
 }
 
@@ -102,23 +120,27 @@ if (!empty($_FILES['fotos']) && is_array($_FILES['fotos']['name'])) {
 if ($id > 0) {
     $stmt = $pdo->prepare(
         'UPDATE imoveis SET titulo=?, finalidade=?, tipo=?, preco=?, iptu=?, condominio=?, observacoes=?, descricao=?,
-         cidade_bairro=?, dormitorios=?, banheiros=?, vagas=?, aceita_financiamento=?, aceita_permuta=?, destaque=?, status=?
+         cidade_bairro=?, dormitorios=?, banheiros=?, vagas=?, aceita_financiamento=?, aceita_permuta=?, destaque=?, status=?,
+         youtube_url=?, drive_url=?
          WHERE id=?'
     );
     $stmt->execute([
         $titulo, $finalidade, $tipo, $preco, $iptu, $condominio, $observacoes ?: null, $descricao,
         $cidadeBairro, $dormitorios, $banheiros, $vagas, $aceitaFinanciamento, $aceitaPermuta, $destaque, $status,
+        $youtubeUrl, $driveUrl,
         $id,
     ]);
 } else {
     $stmt = $pdo->prepare(
         'INSERT INTO imoveis (codigo, titulo, finalidade, tipo, preco, iptu, condominio, observacoes, descricao,
-         cidade_bairro, dormitorios, banheiros, vagas, aceita_financiamento, aceita_permuta, destaque, status)
-         VALUES ("", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         cidade_bairro, dormitorios, banheiros, vagas, aceita_financiamento, aceita_permuta, destaque, status,
+         youtube_url, drive_url)
+         VALUES ("", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
     );
     $stmt->execute([
         $titulo, $finalidade, $tipo, $preco, $iptu, $condominio, $observacoes ?: null, $descricao,
         $cidadeBairro, $dormitorios, $banheiros, $vagas, $aceitaFinanciamento, $aceitaPermuta, $destaque, $status,
+        $youtubeUrl, $driveUrl,
     ]);
     $id = (int) $pdo->lastInsertId();
     $codigo = gerarCodigo($id);
@@ -139,9 +161,21 @@ if (!empty($arquivosEnviados)) {
     $stmtInsereFoto = $pdo->prepare('INSERT INTO fotos_imovel (imovel_id, caminho_arquivo, ordem) VALUES (?, ?, ?)');
 
     foreach ($arquivosEnviados as $arquivo) {
-        $nomeFinal = bin2hex(random_bytes(8)) . '.' . $arquivo['extensao'];
+        $extensaoFinal = extensaoComprimida($arquivo['mime']);
+        $nomeFinal = bin2hex(random_bytes(8)) . '.' . $extensaoFinal;
         $destino = $pastaImovel . '/' . $nomeFinal;
-        if (move_uploaded_file($arquivo['tmp'], $destino)) {
+
+        $comprimiu = comprimirImagem($arquivo['tmp'], $destino, $arquivo['mime']);
+
+        // Se o GD não estiver disponível (ou falhar por algum motivo), salva o
+        // arquivo original sem comprimir — nunca deixa o cadastro travar por isso.
+        if (!$comprimiu) {
+            $nomeFinal = bin2hex(random_bytes(8)) . '.' . $arquivo['extensao'];
+            $destino = $pastaImovel . '/' . $nomeFinal;
+            $comprimiu = move_uploaded_file($arquivo['tmp'], $destino);
+        }
+
+        if ($comprimiu) {
             $stmtInsereFoto->execute([$id, $id . '/' . $nomeFinal, $proximaOrdem]);
             $proximaOrdem++;
         }

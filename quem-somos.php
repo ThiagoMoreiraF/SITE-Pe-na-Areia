@@ -2,8 +2,8 @@
 require_once __DIR__ . '/includes/db.php';
 require_once __DIR__ . '/includes/functions.php';
 
-$paginaTitulo = 'Quem Somos - Grupo Pé na Areia';
-$paginaDescricao = 'Conheça o Grupo Pé na Areia: mais de 25 anos de experiência em consultoria, assessoria e intermediação de negócios imobiliários no Litoral Sul de SP.';
+$paginaTitulo = 'Quem Somos | Grupo Pé na Areia - Imobiliária em Mongaguá';
+$paginaDescricao = 'Conheça o Grupo Pé na Areia: mais de 25 anos de experiência em consultoria, assessoria e intermediação de negócios imobiliários em Mongaguá e no Litoral Sul de SP.';
 require __DIR__ . '/includes/header.php';
 ?>
 
@@ -17,15 +17,15 @@ require __DIR__ . '/includes/header.php';
     <div class="sobre-tagline">A experiência faz a diferença!</div>
 
     <div class="sobre-grid">
-      <div class="sobre-card">
+      <div class="sobre-card sobre-card-missao">
         <h3><i class="fas fa-bullseye"></i> Missão</h3>
         <p>Fornecer soluções com excelência e profissionalismo, superando as expectativas dos nossos clientes na intermediação de negócios.</p>
       </div>
-      <div class="sobre-card">
+      <div class="sobre-card sobre-card-visao">
         <h3><i class="fas fa-eye"></i> Visão</h3>
         <p>Ser referência na prestação de serviços de assessoria e consultoria, priorizando a satisfação e o bem-estar humano, com expansão constante no mercado.</p>
       </div>
-      <div class="sobre-card">
+      <div class="sobre-card sobre-card-valores">
         <h3><i class="fas fa-heart"></i> Valores e Princípios</h3>
         <ul class="sobre-valores">
           <li><strong>Ética e Transparência:</strong> Agir com integridade em todos os relacionamentos.</li>

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /painel/
+Disallow: /includes/
+Disallow: /api/
+Disallow: /database/
+Disallow: /config.php
+
+Sitemap: https://grupopenaareia.com.br/sitemap.xml

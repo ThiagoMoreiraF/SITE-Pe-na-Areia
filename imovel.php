@@ -25,16 +25,42 @@ if (!$imovel) {
     exit;
 }
 
-$stmtFotos = $pdo->prepare('SELECT caminho_arquivo FROM fotos_imovel WHERE imovel_id = ? ORDER BY ordem ASC LIMIT 10');
+$stmtFotos = $pdo->prepare('SELECT caminho_arquivo FROM fotos_imovel WHERE imovel_id = ? ORDER BY ordem ASC LIMIT 15');
 $stmtFotos->execute([$imovel['id']]);
 $fotos = array_column($stmtFotos->fetchAll(), 'caminho_arquivo');
 
-$paginaTitulo = h($imovel['titulo']) . ' (' . h($imovel['codigo']) . ') - Grupo Pé na Areia';
+$youtubeId = !empty($imovel['youtube_url']) ? extrairYoutubeId($imovel['youtube_url']) : null;
+
+$paginaTitulo = $imovel['titulo'] . ' em ' . $imovel['cidade_bairro'] . ' (' . $imovel['codigo'] . ') - Grupo Pé na Areia';
 $paginaDescricao = mb_substr($imovel['descricao'], 0, 155);
+$paginaUrl = absoluteUrl('/imovel.php?codigo=' . urlencode($imovel['codigo']));
+$ogImagem = !empty($fotos)
+    ? absoluteUrl(UPLOAD_URL . '/' . $fotos[0])
+    : absoluteUrl('/assets/img/penareia_logo.png');
 require __DIR__ . '/includes/header.php';
 
 $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - ' . $imovel['titulo'] . ' (' . $imovel['cidade_bairro'] . ')';
 ?>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": <?= json_encode($imovel['titulo'], JSON_UNESCAPED_UNICODE) ?>,
+      "description": <?= json_encode(mb_substr($imovel['descricao'], 0, 300), JSON_UNESCAPED_UNICODE) ?>,
+      "image": <?= json_encode($ogImagem, JSON_UNESCAPED_UNICODE) ?>,
+      "sku": <?= json_encode($imovel['codigo'], JSON_UNESCAPED_UNICODE) ?>,
+      "brand": { "@type": "Organization", "name": "Grupo Pé na Areia" },
+      "offers": {
+        "@type": "Offer",
+        "url": <?= json_encode($paginaUrl, JSON_UNESCAPED_UNICODE) ?>,
+        "priceCurrency": "BRL",
+        "price": <?= json_encode((float) $imovel['preco']) ?>,
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/UsedCondition"
+      }
+    }
+    </script>
 
     <div class="detalhe-topo">
       <a href="<?= BASE_URL ?>/index.php" class="detalhe-voltar"><i class="fas fa-arrow-left"></i> Voltar para a lista de imóveis</a>
@@ -46,7 +72,7 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
         <?php if (!empty($fotos)): ?>
         <div class="carrossel-imagens" id="carrossel-imagens">
           <?php foreach ($fotos as $i => $foto): ?>
-            <img src="<?= h(UPLOAD_URL . '/' . $foto) ?>" alt="Foto <?= $i + 1 ?> - <?= h($imovel['titulo']) ?>" class="<?= $i === 0 ? 'ativa' : '' ?>">
+            <img src="<?= h(UPLOAD_URL . '/' . $foto) ?>" alt="Foto <?= $i + 1 ?> - <?= h($imovel['titulo']) ?>" class="<?= $i === 0 ? 'ativa' : '' ?>" <?= $i === 0 ? 'loading="eager"' : 'loading="lazy"' ?>>
           <?php endforeach; ?>
         </div>
         <?php if (count($fotos) > 1): ?>
@@ -60,6 +86,20 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
         </div>
         <?php endif; ?>
       </div>
+
+      <?php if ($youtubeId): ?>
+      <div class="detalhe-video-wrapper">
+        <h3><i class="fab fa-youtube"></i> Vídeo do imóvel</h3>
+        <div class="detalhe-video">
+          <iframe
+            src="https://www.youtube.com/embed/<?= h($youtubeId) ?>"
+            title="Vídeo do imóvel <?= h($imovel['codigo']) ?>"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+      <?php endif; ?>
 
       <div class="detalhe-body">
         <div class="card-badge" style="position:static; display:inline-block; margin-bottom:10px;">
@@ -78,7 +118,7 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
         </div>
 
         <div class="detalhe-valores">
-          <?php if ($imovel['tipo'] === 'apartamento' && $imovel['condominio'] !== null): ?>
+          <?php if (in_array($imovel['tipo'], ['apartamento', 'kitnet'], true) && $imovel['condominio'] !== null): ?>
             <div class="detalhe-valor-box">Condomínio<strong><?= h(formatarMoeda((float) $imovel['condominio'])) ?></strong></div>
           <?php endif; ?>
           <?php if ($imovel['iptu'] !== null): ?>
@@ -92,6 +132,11 @@ $mensagemWhats = 'Olá, tenho interesse no imóvel ' . $imovel['codigo'] . ' - '
           <a href="https://wa.me/<?= h(WHATSAPP_PRINCIPAL) ?>?text=<?= urlencode($mensagemWhats) ?>" target="_blank" rel="noopener" class="btn-whatsapp-card">
             <i class="fab fa-whatsapp"></i> Tenho Interesse — Falar no WhatsApp
           </a>
+          <?php if (!empty($imovel['drive_url'])): ?>
+          <a href="<?= h($imovel['drive_url']) ?>" target="_blank" rel="noopener" class="btn-drive-card">
+            <i class="fab fa-google-drive"></i> Ver galeria completa
+          </a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
