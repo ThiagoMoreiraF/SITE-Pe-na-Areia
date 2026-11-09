@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
+require_once __DIR__ . '/includes/dados-internos.php';
 painelExigirLogin();
 
 function voltarComErro(string $mensagem, int $id = 0): void
@@ -68,6 +69,15 @@ if ($driveUrl !== '') {
     $driveUrl = null;
 }
 
+$dadosInternos = [];
+foreach (array_keys(camposInternos()) as $campo) {
+    [$valor, $erroCampo] = normalizarCampoInterno($campo, (string) ($_POST[$campo] ?? ''));
+    if ($erroCampo !== null) {
+        voltarComErro($erroCampo, $id);
+    }
+    $dadosInternos[$campo] = $valor;
+}
+
 // ---------- Upload de fotos: valida ANTES de tocar no banco ----------
 $arquivosEnviados = [];
 if (!empty($_FILES['fotos']) && is_array($_FILES['fotos']['name'])) {
@@ -117,31 +127,36 @@ if (!empty($_FILES['fotos']) && is_array($_FILES['fotos']['name'])) {
 }
 
 // ---------- Grava no banco ----------
+// Nomes de coluna vêm da lista fixa camposInternos(), nunca de entrada do usuário.
+$colunasInternas = array_keys($dadosInternos);
+$valoresInternos = array_values($dadosInternos);
+
 if ($id > 0) {
+    $setInternos = implode(', ', array_map(fn($c) => "$c=?", $colunasInternas));
     $stmt = $pdo->prepare(
         'UPDATE imoveis SET titulo=?, finalidade=?, tipo=?, preco=?, iptu=?, condominio=?, observacoes=?, descricao=?,
          cidade_bairro=?, dormitorios=?, banheiros=?, vagas=?, aceita_financiamento=?, aceita_permuta=?, destaque=?, status=?,
-         youtube_url=?, drive_url=?
+         youtube_url=?, drive_url=?, ' . $setInternos . '
          WHERE id=?'
     );
-    $stmt->execute([
+    $stmt->execute(array_merge([
         $titulo, $finalidade, $tipo, $preco, $iptu, $condominio, $observacoes ?: null, $descricao,
         $cidadeBairro, $dormitorios, $banheiros, $vagas, $aceitaFinanciamento, $aceitaPermuta, $destaque, $status,
         $youtubeUrl, $driveUrl,
-        $id,
-    ]);
+    ], $valoresInternos, [$id]));
 } else {
     $stmt = $pdo->prepare(
         'INSERT INTO imoveis (codigo, titulo, finalidade, tipo, preco, iptu, condominio, observacoes, descricao,
          cidade_bairro, dormitorios, banheiros, vagas, aceita_financiamento, aceita_permuta, destaque, status,
-         youtube_url, drive_url)
-         VALUES ("", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+         youtube_url, drive_url, ' . implode(', ', $colunasInternas) . ')
+         VALUES ("", ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, '
+         . implode(', ', array_fill(0, count($colunasInternas), '?')) . ')'
     );
-    $stmt->execute([
+    $stmt->execute(array_merge([
         $titulo, $finalidade, $tipo, $preco, $iptu, $condominio, $observacoes ?: null, $descricao,
         $cidadeBairro, $dormitorios, $banheiros, $vagas, $aceitaFinanciamento, $aceitaPermuta, $destaque, $status,
         $youtubeUrl, $driveUrl,
-    ]);
+    ], $valoresInternos));
     $id = (int) $pdo->lastInsertId();
     $codigo = gerarCodigo($id);
     $pdo->prepare('UPDATE imoveis SET codigo = ? WHERE id = ?')->execute([$codigo, $id]);

@@ -169,6 +169,55 @@ require __DIR__ . '/includes/topo.php';
         </div>
       </div>
 
+      <fieldset class="secao-interna">
+        <legend><i class="fas fa-lock"></i> Dados internos <span>— só aparecem aqui no painel, nunca no site</span></legend>
+
+        <h4>Endereço completo</h4>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label for="endereco_rua">Rua / Logradouro</label>
+            <input type="text" id="endereco_rua" name="endereco_rua" maxlength="200" value="<?= h($imovel['endereco_rua'] ?? '') ?>" placeholder="Ex: Av. Monteiro Lobato">
+          </div>
+          <div class="form-grupo">
+            <label for="endereco_numero">Número</label>
+            <input type="text" id="endereco_numero" name="endereco_numero" maxlength="20" value="<?= h($imovel['endereco_numero'] ?? '') ?>" placeholder="Ex: 1250">
+          </div>
+          <div class="form-grupo">
+            <label for="endereco_complemento">Complemento</label>
+            <input type="text" id="endereco_complemento" name="endereco_complemento" maxlength="100" value="<?= h($imovel['endereco_complemento'] ?? '') ?>" placeholder="Ex: Apto 52, Bloco B">
+          </div>
+          <div class="form-grupo">
+            <label for="endereco_cep">CEP</label>
+            <input type="text" inputmode="numeric" id="endereco_cep" name="endereco_cep" maxlength="9" value="<?= h($imovel['endereco_cep'] ?? '') ?>" placeholder="00000-000">
+          </div>
+        </div>
+
+        <h4>Proprietário</h4>
+        <div class="form-grid">
+          <div class="form-grupo">
+            <label for="proprietario_nome">Nome completo</label>
+            <input type="text" id="proprietario_nome" name="proprietario_nome" maxlength="150" value="<?= h($imovel['proprietario_nome'] ?? '') ?>">
+          </div>
+          <div class="form-grupo">
+            <label for="proprietario_telefone">Telefone</label>
+            <input type="tel" id="proprietario_telefone" name="proprietario_telefone" maxlength="30" value="<?= h($imovel['proprietario_telefone'] ?? '') ?>" placeholder="(13) 3445-0000">
+          </div>
+          <div class="form-grupo">
+            <label for="proprietario_celular">Celular</label>
+            <input type="tel" id="proprietario_celular" name="proprietario_celular" maxlength="30" value="<?= h($imovel['proprietario_celular'] ?? '') ?>" placeholder="(13) 99999-0000">
+          </div>
+          <div class="form-grupo">
+            <label for="proprietario_email">E-mail</label>
+            <input type="email" id="proprietario_email" name="proprietario_email" maxlength="150" value="<?= h($imovel['proprietario_email'] ?? '') ?>">
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label for="obs_internas">Observações internas</label>
+          <textarea id="obs_internas" name="obs_internas" rows="4" maxlength="5000" placeholder="Ex: Imóvel em inventário; parte da garagem não está averbada..."><?= h($imovel['obs_internas'] ?? '') ?></textarea>
+        </div>
+      </fieldset>
+
       <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar imóvel</button>
     </form>
   </div>

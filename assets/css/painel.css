@@ -97,6 +97,31 @@ a { color: #0E7C7B; }
 
 .ajuda-texto { font-size: 12px; color: #5C6F6E; margin-top: 4px; }
 
+/* DADOS INTERNOS (só no painel) */
+.secao-interna {
+  border: 2px dashed #C96A16;
+  background: #FFF8EE;
+  border-radius: 10px;
+  padding: 16px 20px 20px;
+  margin-bottom: 20px;
+  min-width: 0;
+}
+.secao-interna legend { font-weight: bold; color: #C96A16; padding: 0 8px; font-size: 15px; }
+.secao-interna legend span { font-weight: normal; color: #5C6F6E; font-size: 13px; }
+.secao-interna h4 { font-size: 13px; color: #2B4548; text-transform: uppercase; letter-spacing: 0.5px; margin: 10px 0 10px; }
+
+/* PLANILHA */
+.planilha-intro { font-size: 14px; color: #2B4548; margin-bottom: 18px; line-height: 1.6; }
+.planilha-intro i { color: #C96A16; }
+.planilha-passos { padding-left: 22px; display: flex; flex-direction: column; gap: 16px; font-size: 14px; color: #1B2E2E; line-height: 1.6; margin-bottom: 22px; }
+.planilha-passos .btn { margin-top: 8px; }
+.planilha-upload { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 8px; }
+.planilha-regras { background: #F5F0E4; border-radius: 8px; padding: 14px 18px; }
+.planilha-regras h4 { font-size: 14px; color: #0B2E33; margin-bottom: 8px; }
+.planilha-regras ul { padding-left: 18px; font-size: 13px; color: #2B4548; line-height: 1.7; }
+.relatorio-avisos h3 { font-size: 15px; color: #C96A16; margin-bottom: 10px; }
+.relatorio-avisos ul { padding-left: 18px; font-size: 13px; color: #2B4548; line-height: 1.7; }
+
 /* RESPONSIVO - CELULAR E TABLET */
 @media (max-width: 768px) {
   .painel-header { padding: 12px 16px; }
