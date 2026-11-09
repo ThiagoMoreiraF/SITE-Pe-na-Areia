@@ -17,7 +17,7 @@ define('WHATSAPP_SECUNDARIO', '5511982885108'); // (11) 98288-5108
 define('EMAIL_CONTATO', 'rcosta2322@gmail.com');
 define('EMAIL_CONTATO_2', 'contato@grupopenaareia.com.br');
 define('SITE_URL', 'https://grupopenaareia.com.br');
-define('CRECI', '232200-F');
+define('CRECI', '201283-F');
 define('ENDERECO', 'Bairro Florida Mirim, Mongaguá – SP');
 
 // ---------- Redes sociais ----------

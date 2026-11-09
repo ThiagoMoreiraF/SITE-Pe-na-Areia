@@ -22,6 +22,11 @@ echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc><?= h($baseUrl) ?>/guia.php</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
   <?php foreach ($imoveis as $imovel): ?>
   <url>
     <loc><?= h($baseUrl) ?>/imovel.php?codigo=<?= urlencode($imovel['codigo']) ?></loc>

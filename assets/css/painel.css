@@ -122,6 +122,33 @@ a { color: #0E7C7B; }
 .relatorio-avisos h3 { font-size: 15px; color: #C96A16; margin-bottom: 10px; }
 .relatorio-avisos ul { padding-left: 18px; font-size: 13px; color: #2B4548; line-height: 1.7; }
 
+/* EDITOR DO GUIA */
+.guia-editor { display: flex; flex-direction: column; gap: 12px; scroll-margin-top: 20px; }
+.guia-editor-capa {
+  border-radius: 8px;
+  min-height: 70px;
+  padding: 14px 16px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  overflow: hidden;
+}
+.guia-editor-capa::before { content: ""; position: absolute; inset: 0; background: rgba(11, 46, 51, 0.72); }
+.guia-editor-capa > * { position: relative; }
+.guia-editor-capa span { color: #fff; font-weight: bold; font-size: 15px; }
+.guia-editor-capa span i { color: #F5A947; margin-right: 4px; }
+.guia-editor-status { font-style: normal; font-size: 11px; font-weight: bold; padding: 3px 10px; border-radius: 12px; background: #F0EAD9; color: #2B4548; }
+.guia-editor-status.editado { background: #E8871E; color: #0B2E33; }
+.guia-restaurar { align-self: flex-start; }
+.guia-editor-salvar { margin: 4px 0 20px; }
+.guia-editor-salvar.topo { margin: 0 0 16px; }
+.alerta code { background: rgba(255,255,255,0.6); padding: 1px 5px; border-radius: 4px; }
+
 /* RESPONSIVO - CELULAR E TABLET */
 @media (max-width: 768px) {
   .painel-header { padding: 12px 16px; }

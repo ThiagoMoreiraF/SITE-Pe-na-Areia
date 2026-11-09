@@ -24,6 +24,7 @@ $paginaTitulo = $paginaTitulo ?? 'Painel - Grupo Pé na Areia';
     <nav>
       <a href="<?= BASE_URL ?>/painel/index.php">Imóveis</a>
       <a href="<?= BASE_URL ?>/painel/planilha.php">Planilha</a>
+      <a href="<?= BASE_URL ?>/painel/guia.php">Guia</a>
       <a href="<?= BASE_URL ?>/index.php" target="_blank" rel="noopener">Ver site</a>
       <span>Olá, <?= h($_SESSION['painel_usuario_email'] ?? '') ?></span>
       <a href="<?= BASE_URL ?>/painel/logout.php" class="sair">Sair</a>

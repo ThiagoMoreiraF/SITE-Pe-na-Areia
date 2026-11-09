@@ -123,29 +123,6 @@ async function carregarImoveis() {
   }
 }
 
-// Controle do Guia (Abas) no rodapé
-let abaAtual = 0;
-const totalAbas = 6;
-
-function abrirAba(indice) {
-  abaAtual = indice;
-  const abas = document.querySelectorAll('.tab-content');
-  const botoes = document.querySelectorAll('.tab-btn');
-
-  abas.forEach((aba, i) => aba.classList.toggle('active', i === indice));
-  botoes.forEach((btn, i) => btn.classList.toggle('active', i === indice));
-
-  const indicador = document.getElementById('guide-indicator');
-  if (indicador) indicador.innerText = `Página ${indice + 1} de ${totalAbas}`;
-}
-
-function mudarAba(direcao) {
-  abaAtual += direcao;
-  if (abaAtual < 0) abaAtual = totalAbas - 1;
-  if (abaAtual >= totalAbas) abaAtual = 0;
-  abrirAba(abaAtual);
-}
-
 // Envio do formulário do proprietário direto para o WhatsApp
 function enviarProprietarioWhats(e) {
   e.preventDefault();

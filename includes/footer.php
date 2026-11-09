@@ -56,7 +56,7 @@
             <div><strong>Grupo Pé na Areia Consultoria Imobiliária</strong></div>
           </li>
           <li>
-            <div><strong>CRECI: <?= h(CRECI) ?></strong></div>
+            <div><strong>CRECI/SP <?= h(CRECI) ?></strong></div>
           </li>
         </ul>
 
@@ -66,70 +66,6 @@
           <a href="<?= h(SOCIAL_TIKTOK) ?>" target="_blank" rel="noopener" class="social-icon tiktok" title="TikTok" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
           <a href="<?= h(SOCIAL_LINKEDIN) ?>" target="_blank" rel="noopener" class="social-icon linkedin" title="LinkedIn" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
           <a href="<?= h(SOCIAL_YOUTUBE) ?>" target="_blank" rel="noopener" class="social-icon youtube" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-
-      <!-- COLUNA 3: GUIA & ORIENTAÇÕES -->
-      <div class="footer-section guide-column">
-        <h4><i class="fas fa-book-open"></i> Guia & Orientações</h4>
-
-        <div class="guide-box">
-          <div class="guide-tabs">
-            <button class="tab-btn active" onclick="abrirAba(0)"><i class="fas fa-circle-info"></i> Saiba Mais</button>
-            <button class="tab-btn" onclick="abrirAba(1)"><i class="fas fa-key"></i> Alugar</button>
-            <button class="tab-btn" onclick="abrirAba(2)"><i class="fas fa-house-circle-check"></i> Aval. Residencial</button>
-            <button class="tab-btn" onclick="abrirAba(3)"><i class="fas fa-building-circle-check"></i> Aval. Comercial</button>
-            <button class="tab-btn" onclick="abrirAba(4)"><i class="fas fa-store"></i> Passar Ponto</button>
-            <button class="tab-btn" onclick="abrirAba(5)"><i class="fas fa-arrow-right-arrows-left"></i> Permuta</button>
-          </div>
-
-          <div class="tab-content active">
-            <h5><i class="fas fa-circle-info"></i> Saiba Mais</h5>
-            <p>
-              O <strong>Grupo Pé na Areia</strong> atua na consultoria completa para compra, venda e gestão de imóveis no Litoral Sul de SP. Oferecemos segurança jurídica com checagem rigorosa de certidões, suporte em financiamentos bancários e atendimento com hora marcada.
-            </p>
-          </div>
-
-          <div class="tab-content">
-            <h5><i class="fas fa-key"></i> Alugar um Imóvel</h5>
-            <p>
-              Para alugar com tranquilidade, realizamos análise cadastral ágil do locatário. Trabalhamos com opções de garantias como caução, seguro fiança ou fiador, garantindo contrato transparente.
-            </p>
-          </div>
-
-          <div class="tab-content">
-            <h5><i class="fas fa-house-circle-check"></i> Avaliação Residencial</h5>
-            <p>
-              A avaliação precisa calcula o valor real de mercado com base na localização, metragem, padrão de acabamento e histórico de vendas na região do Litoral Sul.
-            </p>
-          </div>
-
-          <div class="tab-content">
-            <h5><i class="fas fa-building-circle-check"></i> Avaliação Comercial</h5>
-            <p>
-              Análise técnica para lojas, salas e galpões comerciais. Avaliamos o fluxo de pedestres e veículos, vocação da região e potencial de retorno sobre o investimento.
-            </p>
-          </div>
-
-          <div class="tab-content">
-            <h5><i class="fas fa-store"></i> Passar o Ponto</h5>
-            <p>
-              Trata-se da negociação do <em>fundo de comércio</em> (instalações, carteira de clientes, marca e móveis). Orientamos na transição segura do contrato junto ao proprietário.
-            </p>
-          </div>
-
-          <div class="tab-content">
-            <h5><i class="fas fa-arrow-right-arrows-left"></i> Permuta Imobiliária</h5>
-            <p>
-              A permuta é a troca direta de imóveis entre proprietários. Quando os valores não são iguais, ocorre o pagamento da diferença (torna). Avaliamos ambos os imóveis para um negócio justo.
-            </p>
-          </div>
-
-          <div class="guide-nav">
-            <button class="guide-nav-btn" onclick="mudarAba(-1)"><i class="fas fa-chevron-left"></i> Anterior</button>
-            <span class="guide-page-indicator" id="guide-indicator">Página 1 de 6</span>
-            <button class="guide-nav-btn" onclick="mudarAba(1)">Próximo <i class="fas fa-chevron-right"></i></button>
-          </div>
         </div>
       </div>
 

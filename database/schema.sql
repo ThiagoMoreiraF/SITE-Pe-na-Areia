@@ -61,3 +61,10 @@ CREATE TABLE IF NOT EXISTS fotos_imovel (
 
 -- O usuário administrador (dono) é criado depois, pelo /painel/setup.php
 -- (não insira senha em texto puro aqui; o setup.php gera o hash com password_hash)
+
+CREATE TABLE IF NOT EXISTS guia_topicos (
+  slug VARCHAR(50) NOT NULL PRIMARY KEY,
+  titulo VARCHAR(120) NOT NULL,
+  texto TEXT NOT NULL,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
