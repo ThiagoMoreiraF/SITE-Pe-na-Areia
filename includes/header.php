@@ -64,6 +64,7 @@ $ogTipo = $ogTipo ?? 'website';
       <a href="<?= BASE_URL ?>/index.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'index.php') ? ' class="active"' : '' ?>>Início</a>
       <a href="<?= BASE_URL ?>/quem-somos.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'quem-somos.php') ? ' class="active"' : '' ?>>Quem Somos</a>
       <a href="<?= BASE_URL ?>/guia.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'guia.php') ? ' class="active"' : '' ?>>Guia & Orientações</a>
+      <a href="<?= BASE_URL ?>/baixada-santista.php"<?= (basename($_SERVER['SCRIPT_NAME']) === 'baixada-santista.php') ? ' class="active"' : '' ?>>Conheça a Baixada Santista</a>
     </nav>
     <span>Litoral Sul – SP | Mongaguá, Itanhaém, Praia Grande e regiões.</span>
   </div>

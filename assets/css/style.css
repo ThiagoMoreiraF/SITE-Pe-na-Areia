@@ -934,3 +934,137 @@ footer {
   .guia-hero h2 { font-size: 26px; }
   .guia-cta { justify-content: center; text-align: center; }
 }
+
+/* REVISTA DIGITAL — CONHEÇA A BAIXADA SANTISTA
+   Textos de capa/sumário usam unidades cqw (relativas à largura da página),
+   com um valor em px antes como reserva para navegadores antigos. */
+.revista-cabecalho {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 16px;
+  padding: 24px 32px;
+  border-top: 4px solid #0E7C7B;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.revista-cabecalho h2 { font-size: 30px; color: #0B2E33; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 8px; }
+.revista-cabecalho h2 i { color: #E8871E; }
+.revista-cabecalho p { color: #2B4548; font-size: 15px; line-height: 1.6; }
+
+.revista-palco { width: 100%; margin: 0 auto 18px; }
+@media (min-width: 768px) {
+  .revista-palco { max-width: min(1150px, calc((100vh - 130px) * 1.35)); }
+}
+
+/* Sem JavaScript: as páginas aparecem em grade */
+.revista-livro:not(.stf__parent) { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.revista-livro:not(.stf__parent) .revista-pagina { aspect-ratio: 600 / 890; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
+
+.revista-pagina { background: #fff; overflow: hidden; container-type: inline-size; }
+.revista-pagina-cidade img { width: 100%; height: 100%; object-fit: contain; display: block; background: #fff; user-select: none; -webkit-user-drag: none; }
+
+/* Imagem fica no CSS (e não no atributo style) porque a biblioteca de folhear reescreve o style das páginas. */
+.revista-capa { background: linear-gradient(rgba(11,46,51,0.5), rgba(11,46,51,0.92)), url('../img/plataforma_mongagua.jpeg') center/cover no-repeat; color: #fff; }
+.revista-capa-conteudo { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 10% 9%; gap: 14px; gap: 3.5cqw; }
+.revista-capa-logo { width: 46%; max-width: 230px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.45)); }
+.revista-capa-selo { text-transform: uppercase; letter-spacing: 3px; font-weight: 700; color: #F5A947; border: 1px solid #F5A947; border-radius: 999px; padding: 4px 14px; font-size: 12px; font-size: 2.6cqw; }
+.revista-capa h3 { font-family: 'Fraunces', Georgia, serif; color: #fff; line-height: 1.05; text-shadow: 0 3px 12px rgba(0,0,0,0.5); font-size: 34px; font-size: 10cqw; }
+.revista-capa p { color: #F0EAD9; line-height: 1.5; font-size: 15px; font-size: 3.6cqw; }
+.revista-capa-dica { margin-top: 6%; color: #D9D2C3; font-size: 12px; font-size: 2.8cqw; }
+.revista-capa small { color: #D9D2C3; font-size: 12px; font-size: 2.6cqw; }
+.revista-contracapa h3 { font-size: 26px; font-size: 7.5cqw; }
+.revista-contracapa-whats { flex: none; padding: 12px 22px; padding: 2.6cqw 5.5cqw; font-size: 14px; font-size: 3.4cqw; }
+
+.revista-sumario { background: #FBF6EC; }
+.revista-sumario-conteudo { height: 100%; display: flex; flex-direction: column; padding: 11% 9%; }
+.revista-sumario h3 { font-family: 'Fraunces', Georgia, serif; color: #0B2E33; border-bottom: 3px solid #E8871E; font-size: 26px; font-size: 7.5cqw; padding-bottom: 3cqw; margin-bottom: 4cqw; }
+.revista-sumario ol { list-style: none; display: flex; flex-direction: column; flex: 1; justify-content: space-evenly; }
+.revista-sumario button {
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  gap: 2cqw;
+  background: none;
+  border: 0;
+  padding: 4px 0;
+  cursor: pointer;
+  font-family: inherit;
+  color: #1B2E2E;
+  text-align: left;
+  font-size: 16px;
+  font-size: 4.3cqw;
+}
+.sumario-cidade { font-weight: 600; }
+.sumario-cidade small { color: #5C6F6E; font-weight: 400; font-size: 0.75em; }
+.sumario-pontilhado { flex: 1; border-bottom: 2px dotted #C9BFA9; }
+.sumario-pagina { font-family: 'Fraunces', Georgia, serif; font-weight: 700; color: #0E7C7B; }
+.revista-sumario button:hover .sumario-cidade, .revista-sumario button:focus-visible .sumario-cidade { color: #0E7C7B; text-decoration: underline; }
+.sumario-dica { color: #5C6F6E; font-size: 12px; font-size: 3cqw; margin-top: 3cqw; }
+
+.revista-controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: rgba(11, 46, 51, 0.94);
+  border-radius: 999px;
+  padding: 10px 14px;
+  max-width: 780px;
+  margin: 0 auto 26px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+}
+.revista-controles[hidden] { display: none; }
+.revista-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0E7C7B;
+  color: #fff;
+  border: 1px solid #0E7C7B;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.revista-btn:hover { background: #0A5F5E; }
+.revista-btn-secundario { background: transparent; border-color: #4FB8B0; color: #D9F2EF; }
+.revista-btn-secundario:hover { background: rgba(79, 184, 176, 0.18); }
+.revista-btn:disabled { opacity: 0.4; cursor: default; }
+.revista-contador { color: #F5D9A8; font-weight: 700; font-size: 14px; min-width: 160px; text-align: center; }
+
+/* margin: auto centraliza o <dialog> (o reset global "* { margin: 0 }" removeria a centralização padrão) */
+.revista-zoom { margin: auto; border: 0; padding: 0; background: transparent; width: min(920px, 96vw); max-width: none; max-height: 94vh; overflow: auto; }
+.revista-zoom::backdrop { background: rgba(5, 20, 23, 0.88); }
+.revista-zoom-paginas { display: flex; flex-direction: column; gap: 14px; }
+.revista-zoom-paginas img { width: 100%; height: auto; display: block; border-radius: 6px; }
+.revista-zoom-fechar {
+  position: sticky;
+  top: 10px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  margin: 0 10px -46px auto;
+  border: 0;
+  border-radius: 50%;
+  background: #E8871E;
+  color: #0B2E33;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+
+@media (max-width: 560px) {
+  .revista-cabecalho { padding: 20px 18px; }
+  .revista-cabecalho h2 { font-size: 23px; }
+  .revista-controles { border-radius: 16px; gap: 8px; }
+  .revista-contador { order: -1; width: 100%; min-width: 0; }
+  .revista-btn { padding: 10px 14px; }
+  .revista-btn span { display: none; }
+}
